@@ -3,13 +3,9 @@ const logger = require('./src/logger.js').getLogger();
 logger.info('index.js - Starting...');
 
 // Initiation
+require('./src/init');
 
-require('./src/init')
-  .initiationObject
-  .initEnvironmentParameters()
-  .validatePort()
-  ;
+// validate configs (using joi)
+require('./config');
 
-// Web Init
-require('./web/index');
-
+logger.info('index.js - Validation of configurations and env variables succeeded.');

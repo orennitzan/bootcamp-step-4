@@ -1,3 +1,4 @@
+module.exports = `
 SET client_min_messages TO WARNING;
 
 DROP TABLE IF EXISTS contribution CASCADE;
@@ -7,3 +8,4 @@ CREATE TABLE contribution (
   line_count int
 
 );
+`;

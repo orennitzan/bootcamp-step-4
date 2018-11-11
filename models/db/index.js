@@ -1,35 +1,10 @@
-const userCreate = require('./create-user');
-const repositoryCreate = require('./create-repository');
-const contributionCreate = require('./create-contribution');
+const knex = require('knex');
 
-console.log('>>> Executig DB create processes.');
-(async () => {
-    console.log('>>> Executing db create users table.');
-    await userCreate.exec()
-        .then((msg) => {
-            console.log(`>>> ${msg}`);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+const config = require('../../config').pg;
 
-    console.log('>>> Executing db create repository table.');
-    await repositoryCreate.exec()
-        .then((msg) => {
-            console.log(`>>> ${msg}`);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
+const db = knex(config);
 
-    console.log('>>> Executing db create contribution table.');
-    await contributionCreate.exec()
-        .then((msg) => {
-            console.log(`>>> ${msg}`);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-})();
+module.exports = db;
 
-
+// TODO: Is it wright to migrate every time i require db?? I don't think so.
+knex.migrate.latest([config]);

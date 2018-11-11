@@ -1,38 +1,63 @@
-# Risingstart bootcamp-step-3
+# Risingstart bootcamp-step-4
 
 ## Requirements
+knex migrate:latest
+- [ ] Implement the user model:
 
-### Original
+      - `User.insert({ id, login, avatar_url, html_url, type })`
+        - validate the parameters
+      - `User.read({ id, login })`
+        - validate the parameters
+        - one is required: `id` or `login`
+- [ ] Implement the repository model:
+      - `Repository.insert({ id, owner, full_name, description, html_url, language, stargazers_count })`
+        - Validate the parameters
+        - `description` and `language` can be empty `String`s
+      - `Repository.read({ id, full_name })`
+        - Validate the parameters
+        - One is required: `id` or `full_name`
+        - Return the owner as well as an object (join tables and reorganize fields)
+- [ ] Implement the contribution model: 
+      - `Contribution.insert({ repository, user, line_count })`
+        - Validate the parameters
+      - `Contribution.insertOrReplace({ repository, user, line_count })`
+        - Validate the parameters
+        - Use a [raw query](http://knexjs.org/#Raw-Queries) and the [`ON CONFLICT`](https://www.postgresql.org/docs/9.6/static/sql-insert.html) SQL expression
+      - `Contribution.read({ user: { id, login }, repository: { id, full_name } })`
+        - Validate the parameters
+        - The function parameter should be an Object, it should contain either a user, either a repository field or both of them.
 
-1. Create one migration file per table (eg. 1-create-user.js, 2-create-repository.js 3-create-contribution.js) with the following skeleton:
+          If only the user is provided, then all the contributions of that user will be resolved. 
+          If only the repository is provided, than all the users who contributed to that repository will be resolved.
+          If both are provided, then it will match the contribution of a particular user to a particular repo.
 
-   - up method has the logic for the migration, down is for reverting it.
-   - The migrations are executed in transactions.
-   - The files are executed in alphabetical orde.
+        - The functions resolves to an Array of contributions (when both a user and a repository identifier is passed, it will only have 1 element)
+        - Return the repository and user as well as an object
+          (*This requirement is just for the sake of making up a problem, when you actually need this function, you will most likely have the user or the repository Object in a whole*)
+          ```js
+          {
+            line_count: 10,
+            user: { id: 1, login: 'coconut', ... },
+            repository: { id: 1, full_name: 'risingstack/repo', ... }
+          }
+          ```
+        - Use a **single** SQL query
+        - When you join the tables, there will be conflicting column names (`id`, `html_url`). Use the `as` keyword when selecting columns (eg. `repository.id as repository_id`) to avoid this
 
-2. Add a migrate-db script to the scripts in package.json and corresponding scripts/migrate-db.js file.
-
-### Substitution
-
-1. Using postgresql database and pg, fs, path, assert packages, create sql scripts and run them via packag.json script.
-
-2. The process should run the scripts and assert the results against expected results to velidate the the process is valid.
-
-3. Create script pre-commit that runs 3 actions:
-
-   - pretty - prettifies the code.
-   - lint - points code errors
-   - tests
+  Notes:
+  - `user` is a reserved keyword in PG, use double quotes where you reference the table in a raw query
+  - You can get the columns of a table by querying `information_schema.columns`, which can be useful to select fields dinamically when joining tables, eg.:
+    ```sql
+    SELECT column_name FROM information_schema.columns WHERE table_name='contribution';
+    ```
 
 ## Instalation and Execution
 
-1. git clone <https://github.com/orennitzan/bootcamp-step-3.git>
-2. Change directory to **bootcamp-step-3**
+1. git clone <https://github.com/orennitzan/bootcamp-step-4.git>
+2. Change directory to **bootcamp-step-4**
 3. Run 'npm install'
 4. Modify 'POSTGRES_CONFIG' in config.js file to your db parameters
 5. Run 'npm run pre-commit' to exec pre-commit script
 6. Run 'npm run db-create' to create db tables.
 
 ## Comments
-
-1. Did not study migrations!!!
