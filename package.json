@@ -12,8 +12,8 @@
     "pre-commit": "npm run pretty && npm run lint && npm test",
     "test": "jest",
     "test:watch": "jest --watch",
-    "db-create": "node models/db",
-    "tst-user": "node models/user"
+    "migratedb": "node  models/migrate/migrate.js",
+    "db-scripts": "node models/db/crud-test.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",
     "pg": "^7.6.0",
+    "postgres-migrations": "^2.0.3",
     "request-promise-native": "^1.0.5",
     "semver": "^5.6.0",
     "winston": "^3.1.0"

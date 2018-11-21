@@ -1,7 +1,7 @@
-# Risingstart bootcamp-step-4
+# Risingstack bootcamp-step-4
 
 ## Requirements
-knex migrate:latest
+
 - [ ] Implement the user model:
 
       - `User.insert({ id, login, avatar_url, html_url, type })`
@@ -51,13 +51,30 @@ knex migrate:latest
     SELECT column_name FROM information_schema.columns WHERE table_name='contribution';
     ```
 
-## Instalation and Execution
+## Installation and Execution
 
 1. git clone <https://github.com/orennitzan/bootcamp-step-4.git>
 2. Change directory to **bootcamp-step-4**
 3. Run 'npm install'
-4. Modify 'POSTGRES_CONFIG' in config.js file to your db parameters
-5. Run 'npm run pre-commit' to exec pre-commit script
-6. Run 'npm run db-create' to create db tables.
+4. Modify your db parameters in dotenv file:
+   - PORT=1000
+   - LOG_LEVEL=debug
+   - NODE_ENV=development
+   - PROCESS_TYPE=web
+   - DB_HOST='localhost'
+   - DB_USER=postgres
+   - DB_NAME=myDb
+   - DB_PASS=******
+   - DB_PORT=5432
+5. Run 'npm run pre-commit' to exec pre-commit script and check results.
+6. Run 'npm run migratedb' to run migrations. (make sure to create your db and set it's name in dotenv file).
+7. Run 'npm run db-scripts' to test working with the data base.
+   - Expect insert and read from users.
+   - Expect insert and read from repository.
+   - Expect Read from repository by raw sql (my version).
+   - Expect Read with non existing repository id and get undefined.
 
 ## Comments
+
+1. I was wondering how to test the db?
+2. Did not implement the third model - contribution!!!  

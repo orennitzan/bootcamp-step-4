@@ -10,7 +10,7 @@ const insertSchema = joi
     display_name: joi.string(),
     avatar_url: joi
       .string()
-      .uri()
+      // .uri()
       .required(),
     html_url: joi.string().required(),
     phone: joi.string().required()
@@ -23,15 +23,18 @@ async function insert(params) {
   return db(tableName)
     .insert(user)
     .returning('*')
-    .then(fp.first);
+    // Note!! This is Lodash/FP ==> Functional Programing!! 
+    // fp.first is a function that returns the first element of an array.
+    // It knows it's data so you don't have to pass anything!! Awesome!!!
+    .then(fp.first); 
+    // .then((data) => fp.first(data));
 }
 
 const readSchema = joi
   .object({
     id: joi
       .number()
-      .integer()
-      .required(),
+      .integer(),
     login: joi.string()
   })
   .xor('id', 'login')
@@ -39,7 +42,6 @@ const readSchema = joi
 
 async function read(params) {
   const selection = joi.attempt(params, readSchema);
-
   return db(tableName)
     .where(selection)
     .select()

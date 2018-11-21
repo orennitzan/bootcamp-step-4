@@ -4,5 +4,4 @@ const config = require('../../config').pg;
 
 const db = knex(config);
 
-module.exports = db;
-
+db.migrate.latest(config);
