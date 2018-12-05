@@ -35,13 +35,15 @@ const readSchema = joi
     id: joi
       .number()
       .integer(),
-    login: joi.string()
+    login: joi.string(),
+    limit: joi.number().integer()
   })
   .xor('id', 'login')
   .required();
 
 async function read(params) {
   const selection = joi.attempt(params, readSchema);
+  
   return db(tableName)
     .where(selection)
     .select()

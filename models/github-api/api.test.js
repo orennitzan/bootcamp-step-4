@@ -55,7 +55,8 @@ test('Contributors should indicate 1 contributor', async () => {
 // Working contributors url
 // https://api.github.com/repos/orennitzan/bootcamp-step-1/stats/contributors
 
-// Note!! These tests worg against the real git-api. But thw task ask to nock it!! See above tests.
+// Note!! These tests work against the real git-api. But the task asks to nock it!! 
+// See above tests.
 
 test('Search repository "bootcamp-step-1 in:name" should return 1 item', async () => {
   const res = await api.searchRepositories({ q: 'bootcamp-step-1 in:name' });

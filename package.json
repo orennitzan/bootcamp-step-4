@@ -10,7 +10,7 @@
     "pretty": "prettier  --write **/*.js",
     "lint": "eslint --fix **/*.js",
     "pre-commit": "npm run pretty && npm run lint && npm test",
-    "test": "jest",
+    "test": "jest --detectOpenHandles ",
     "test:watch": "jest --watch",
     "migratedb": "node  models/migrate/migrate.js",
     "db-scripts": "node models/db/crud-test.js"
@@ -29,6 +29,7 @@
     "dotenv": "latest",
     "joi": "^14.0.4",
     "knex": "^0.15.2",
+    "knex-logger": "^0.1.0",
     "koa": "^2.6.0",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.11",

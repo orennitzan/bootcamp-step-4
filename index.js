@@ -12,7 +12,7 @@ logger.info(
   'index.js - Validation of configurations and env variables succeeded.'
 );
 
-require('./models/db/crud-test')
+// require('./models/db/crud-test')
 
 // const db = require('./models/db')
 
@@ -53,4 +53,20 @@ require('./models/db/crud-test')
 //   .catch((err) => {
 //     console.log(err)
 //   });
+
+
+const cont = require('./models/contribution')
+
+// cont.insert({ user_id: 2, repository_id: 2, line_count: 10 }).then((res) => {
+//   console.log(res);
+// })
+
+// cont.insertOrReplace({ user_id: 41, repository_id: 2, line_count: 99 }).then((res) => {
+//   console.log(res);
+// })
+
+// cont.read({ user: { id: 103 }, repository: { id: 87 } }).then((res) => {
+//   console.log(res)
+// }
+// )
 

@@ -1,10 +1,9 @@
-
 const fp = require('lodash/fp')
 const joi = require('joi')
 const db = require('../db')
 const { getColumns, addPrefixAliasToColumns, getColumnsByTableNamePrefix } = require('../db/utils')
 const User = require('../user')
-let sqlBase = require('../db/scripts/repository-select')
+const sqlBase = require('../db/scripts/repository-select')
 
 const tableName = 'repository'
 
