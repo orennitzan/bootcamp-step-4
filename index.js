@@ -12,3 +12,4 @@ logger.info(
   'index.js - Validation of configurations and env variables succeeded.'
 );
 
+
